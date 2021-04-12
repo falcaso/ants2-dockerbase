@@ -39,8 +39,10 @@ RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
 #ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
 
 # ANTS installation
-# RUN mkdir /ants2 && cd /ants2 && git clone -b Dev https://github.com/falcaso/ANTS2-my-version.git # refresh+1!
-RUN mkdir /ants2 && cd /ants2 && git clone -b Dev https://github.com/andrmor/ANTS2.git # refresh+1!
+RUN rm -f /ants2
+RUN mkdir /ants2 && cd /ants2 && git clone -b GeoPrototypes https://github.com/falcaso/ANTS2-my-version.git
+# RUN mkdir /ants2 && cd /ants2 && git clone -b Dev https://github.com/andrmor/ANTS2.git # refresh+1!
+RUN cd /ants2 && mv ANTS2-my-version ANTS2
 RUN cd /ants2/ANTS2 && mkdir build
 
 ### the effect of sourcing a script lasts only inside one RUN command
@@ -48,11 +50,12 @@ RUN cd /ants2/ANTS2 && mkdir build
 RUN /bin/bash -c "source /opt/root/bin/thisroot.sh \
     && cd /ants2/ANTS2/build && qmake \"CONFIG += ants2_docker\" ../src/ants2.pro && make -j$JOBS"
 
+
 # Additional Python packages
 RUN apt-get -y install python3-pip
 #RUN pip3 install PyQt5
 RUN pip3 install numpy scipy pandas scikit-learn
-## Could also install nestpy here...
+## Also possible to install nestpy here
 # pip3 install nestpy
 ## or...
 # RUN git clone https://github.com/NESTCollaboration/nestpy
