@@ -40,7 +40,7 @@ RUN echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:/usr/local/lib" >> ~/.bashrc
 
 # ANTS installation
 RUN rm -f /ants2
-RUN mkdir /ants2 && cd /ants2 && git clone -b GeoPrototypes https://github.com/falcaso/ANTS2-my-version.git
+RUN mkdir /ants2 && cd /ants2 && git clone -b GeoPrototypes https://github.com/falcaso/ANTS2-my-version.git # refresh+1!
 # RUN mkdir /ants2 && cd /ants2 && git clone -b Dev https://github.com/andrmor/ANTS2.git # refresh+1!
 RUN cd /ants2 && mv ANTS2-my-version ANTS2
 RUN cd /ants2/ANTS2 && mkdir build
